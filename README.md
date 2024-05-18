@@ -14,5 +14,4 @@
 
 - mysql, java, spring boot
 
-- 로컬에서 인증 테스트를 위해서 벡엔드는 local.api.devco.com 도메인을, 프론트는 local.devco.com 도메인을 가져야함.
-  (추후 알파 서버가 생기고 프론트가 이를 바라본다고 하면 내용이 바뀔 수 있음.)
+- OAuth 인증 확인은 배포가 다 끝나고 하자...
