@@ -2,6 +2,7 @@ package com.devco.blog.config.oauth;
 
 import java.io.IOException;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -16,6 +17,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
   private final JwtProvider jwtProvider;
+
+  @Value("${oauth.redirect}")
+  private String redirect;
 
   @Override
   public void onAuthenticationSuccess(
@@ -34,6 +38,6 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     cookie.setMaxAge(7 * 60 * 60);
 
     response.addCookie(cookie);
-    response.sendRedirect("http://local.devco.com/auth/oauth-response/");
+    response.sendRedirect(redirect);
   }
 }
