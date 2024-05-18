@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class OAuth2UserService extends DefaultOAuth2UserService {
-  private UserRepository userRepository;
+  private final UserRepository userRepository;
 
   @Override
   public OAuth2User loadUser(OAuth2UserRequest request) throws OAuth2AuthenticationException {
@@ -40,7 +40,7 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
 
     if (oauthClientName.equals("naver")) {
       Map<String, String> responseMap = (Map<String, String>) oAuth2User.getAttributes().get("response");
-      userId = "naver_" + responseMap.get("id").substring(0, 14);
+      userId = "naver_" + responseMap.get("id");
       user = new User(userId, "naver", "ROLE_USER");
     }
 

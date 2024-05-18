@@ -11,13 +11,13 @@ import org.springframework.security.config.annotation.web.configurers.CsrfConfig
 import org.springframework.security.config.annotation.web.configurers.HttpBasicConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.devco.blog.config.oauth.JwtAuthenticationFilter;
 import com.devco.blog.config.oauth.OAuth2SuccessHandler;
+import com.devco.blog.config.oauth.OAuth2UserService;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,7 +29,7 @@ import lombok.RequiredArgsConstructor;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class WebSecurityConfig {
-  private final DefaultOAuth2UserService oAuth2UserService;
+  private final OAuth2UserService oAuth2UserService;
   private final OAuth2SuccessHandler oAuth2SuccessHandler;
   private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
@@ -42,7 +42,7 @@ public class WebSecurityConfig {
         .sessionManagement(sessionManagement -> sessionManagement
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(request -> request
-            .requestMatchers("/", "/api/v1/auth/**").permitAll()
+            .requestMatchers("/", "/api/v1/auth/**", "/oauth2/**").permitAll()
             .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
             .anyRequest().authenticated())
         .oauth2Login(oauth2 -> oauth2
