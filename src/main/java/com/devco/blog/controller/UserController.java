@@ -5,8 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.devco.blog.dto.response.ResponseDto;
-
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequestMapping("/api/v1/user")
 public class UserController {
   @GetMapping("/me")
-  public ResponseEntity<ResponseDto> me() {
+  public ResponseEntity<Void> me() {
     return ResponseEntity.status(HttpStatus.OK).build();
   }
 
